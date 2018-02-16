@@ -16,7 +16,7 @@ public class FootTest extends JPanel
 	// Constructor
 	public FootTest(char userChoice)
 	{
-		shoe = (new ImageIcon("Number 6/leftshoe.gif")).getImage();
+		shoe = (new ImageIcon("leftshoe.gif")).getImage();
 		option = userChoice;
 	}
 
