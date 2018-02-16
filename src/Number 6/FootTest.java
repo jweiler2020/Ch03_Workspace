@@ -5,51 +5,84 @@ import java.awt.Container;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
+import java.util.Scanner;
 
 public class FootTest extends JPanel
 {
-  private Image shoe;
+	private Image shoe;
 
-  // Constructor
-  public FootTest()
-  {
-    shoe = (new ImageIcon("leftshoe.gif")).getImage();
-  }
+	private char option;
 
-  // Called automatically when the panel needs repainting
-  public void paintComponent(Graphics g)
-  {
-    super.paintComponent(g);
+	// Constructor
+	public FootTest(char userChoice)
+	{
+		shoe = (new ImageIcon("Number 6/leftshoe.gif")).getImage();
+		option = userChoice;
+	}
 
-    int x = 300;
-    int y = 100;
-    int stepLength = 100;
+	// Called automatically when the panel needs repainting
+	public void paintComponent(Graphics g)
+	{
+		super.paintComponent(g);
 
-    Foot foot = new Foot(x, y, shoe);
+		int x = 300;
+		int y = 100;
+		int stepLength = 100;
 
-    for (int count = 1; count <= 8; count++)
-    {
-      foot.draw(g);
-      foot.turn(45);
-      foot.moveForward(stepLength);
-    }
+		Foot foot = new Foot(x, y, shoe);
 
-    // Draw a cursor at the expected center of the first "shoe":
-    g.drawLine(x - 50, y, x + 50, y);
-    g.drawLine(x, y - 50, x, y + 50);
-  }
+		if(option == 'a')
+		{
+			// A
+			foot.turn(-90);
+			for(int i = 0; i < 4; i++)
+			{
+				foot.draw(g);
+				foot.moveSideways(stepLength);
+			}
+		}
+		else if(option == 'b')
+		{
+			// B
+			foot.turn(-90);
+			for (int i = 0; i < 4; i++)
+			{
+				foot.draw(g);
+				foot.moveForward(-stepLength);
+			}
+		}
+		else if(option == 'c')
+		{
+			// C
+			for (int i = 0; i < 4; i++)
+			{
+				foot.draw(g);
+				foot.moveForward(stepLength / 2);
+				foot.turn(90);
+				foot.moveForward(stepLength / 2);
+			}
+		}
 
-  public static void main(String[] args)
-  {
-    JFrame window = new JFrame("Feet");
-    window.setBounds(100, 100, 500, 480);
-    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// Draw a cursor at the expected center of the first "shoe":
+		g.drawLine(x - 50, y, x + 50, y);
+		g.drawLine(x, y - 50, x, y + 50);
+	}
 
-    FootTest panel = new FootTest();
-    panel.setBackground(Color.WHITE);
-    Container c = window.getContentPane();
-    c.add(panel);
+	public static void main(String[] args)
+	{
+		JFrame window = new JFrame("Feet");
+		window.setBounds(100, 100, 500, 480);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    window.setVisible(true);
-  }
+		Scanner kb = new Scanner(System.in);
+		System.out.print("Enter which one you want to do (a,b,c): ");
+		char userChoice = kb.nextLine().toLowerCase().charAt(0);
+
+		FootTest panel = new FootTest(userChoice);
+		panel.setBackground(Color.WHITE);
+		Container c = window.getContentPane();
+		c.add(panel);
+
+		window.setVisible(true);
+	}
 }
