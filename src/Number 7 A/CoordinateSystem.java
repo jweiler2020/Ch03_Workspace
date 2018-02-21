@@ -32,7 +32,7 @@ public class CoordinateSystem
 
 	public void drawImage(Graphics g, Image picture)
 	{
-		((Graphics2D)g).drawImage(picture, coordTransform, null);
+		((Graphics2D)g).drawImage(picture, coordTransform, null)
 	}
 }
 
